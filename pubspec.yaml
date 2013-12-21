@@ -5,4 +5,5 @@ description: A sample application
 dependencies:
   http_server: any
   mongo_dart: any
+  transformer: any
   unittest: any
