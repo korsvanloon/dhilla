@@ -6,7 +6,9 @@ abstract class Server {
   int get backlog;
   HttpServer get httpServer;
   StreamController _controller;
+  Set _middlewares;
 
+  void use(Middleware callback);
   Future close();
   void _onListen();
 

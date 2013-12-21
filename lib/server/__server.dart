@@ -1,13 +1,20 @@
 part of dhilla;
 
+typedef Middleware(request);
+
 class _Server extends Stream implements Server {
   final address;
   final int port, backlog;
   HttpServer _httpServer;
   StreamController _controller;
+  Set<Middleware> _middlewares = new Set<Middleware>();
 
   _Server(this.address, this.port, this.backlog) {
     _controller = new StreamController(onListen: _onListen, onCancel: close);
+  }
+
+  void use(Middleware callback) {
+    _middlewares.add(callback);
   }
 
   @override
@@ -15,10 +22,17 @@ class _Server extends Stream implements Server {
                             {Function onError,
                              void onDone(),
                              bool cancelOnError}) {
-    _controller.stream.listen(onData,
-                              onError: onError,
-                              onDone: onDone,
-                              cancelOnError: cancelOnError);
+    return _controller
+           .stream
+           .map((request) {
+             _middlewares.forEach((middleware) =>
+                 request = middleware(request));
+             return request;
+           })
+           .listen(onData,
+                   onError: onError,
+                   onDone: onDone,
+                   cancelOnError: cancelOnError);
   }
 
   void _onListen() {
