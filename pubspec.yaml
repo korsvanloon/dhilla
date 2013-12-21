@@ -1,0 +1,8 @@
+name: dhilla
+author: Faris Nasution <nasution.faris@gmail.com>
+version: 0.0.1
+description: A sample application
+dependencies:
+  http_server: any
+  mongo_dart: any
+  unittest: any
