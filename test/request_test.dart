@@ -54,13 +54,14 @@ void requestTest() {
       expect(request.get('ok'), equals('not ok'));
     });
 
-    test('path', () {
+    test('path getter', () {
       var request = new Request(mockHttpRequest, 'text', 'fwefewf'),
           uri = Uri.parse('/faris/1/?age=22');
 
-      mockHttpRequest.when(callsTo('get uri')).thenReturn(uri);
+      mockHttpRequest.when(callsTo('get uri')).alwaysReturn(uri);
 
       expect(request.path, equals('/faris/1/'));
+      expect(request.uri.queryParameters, equals(uri.queryParameters));
     });
 
   });
