@@ -51,10 +51,12 @@ class _Server extends Stream implements Server {
     }
   }
 
-  Future close() =>
-      _httpServer.close()
-        .then((_) => _httpServer = null)
-        .then((_) => _controller.close());
+  Future close() {
+    if (isUp)
+      return _httpServer.close()
+              .then((_) => _httpServer = null)
+              .then((_) => _controller.close());
+  }
 
   bool get isUp => _httpServer != null;
 
