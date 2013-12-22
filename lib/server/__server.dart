@@ -25,8 +25,9 @@ class _Server extends Stream implements Server {
     return _controller
            .stream
            .map((request) {
-             _middlewares.forEach((middleware) =>
-                 request = middleware(request));
+             if (_middlewares.isNotEmpty)
+               _middlewares.forEach((middleware) =>
+                   request = middleware(request));
              return request;
            })
            .listen(onData,
