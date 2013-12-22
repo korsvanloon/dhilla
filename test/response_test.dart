@@ -43,7 +43,6 @@ void responseTest() {
         ..when(callsTo('value', 'name')).alwaysReturn(map['name'])
         ..when(callsTo('value', 'status')).alwaysReturn(map['status']);
 
-      print(map);
       expect(response.get('name'), equals('faris'));
       expect(response.get('status'), equals('ok'));
     });
