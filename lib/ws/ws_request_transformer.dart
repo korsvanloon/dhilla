@@ -12,6 +12,7 @@ class WSRequestTransformer extends Transformer {
         sink.add(wsRequest);
       });
     }
+    sink.add(request);
   }
 
 }
