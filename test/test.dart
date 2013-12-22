@@ -8,7 +8,9 @@ import 'package:dhilla/dhilla.dart';
 
 part 'mock.dart';
 part 'request_test.dart';
+part 'response_test.dart';
 
 void main() {
   requestTest();
+  responseTest();
 }
