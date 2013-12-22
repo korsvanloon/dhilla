@@ -9,6 +9,7 @@ import 'package:dhilla/dhilla.dart';
 part 'mock.dart';
 part 'request_test.dart';
 part 'response_test.dart';
+part 'type_matcher.dart';
 
 void main() {
   requestTest();
