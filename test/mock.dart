@@ -7,3 +7,5 @@ class MockHttpResponse extends Mock implements HttpResponse {}
 class MockWebSocket extends Mock implements WebSocket {}
 
 class MockHttpHeaders extends Mock implements HttpHeaders {}
+
+class MockRequest extends Mock implements Request {}
