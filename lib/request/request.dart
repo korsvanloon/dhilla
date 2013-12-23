@@ -1,10 +1,17 @@
 part of dhilla;
 
-class Request extends Stream implements HttpRequest {
+abstract class Transferables {
+  String get method;
+  String get path;
+  Map get params;
+}
+
+class Request extends Stream implements HttpRequest, Transferables {
   HttpRequest _request;
   Response _response;
   final String type;
   final body;
+  final Map params = {};
   Map _map = {};
 
   Request(this._request, this.type, this.body) {
