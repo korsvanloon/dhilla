@@ -1,9 +1,11 @@
 part of dhilla;
 
-class WSRequest extends Stream implements WebSocket {
+class WSRequest extends Stream implements WebSocket, Transferables {
   final WebSocket _ws;
   final Request request;
   Map _map = {};
+  final String method = 'WS';
+  final Map params = {};
 
   WSRequest(this._ws, this.request);
 
@@ -50,4 +52,6 @@ class WSRequest extends Stream implements WebSocket {
   String get protocol => _ws.protocol;
 
   int get readyState => _ws.readyState;
+
+  String get path => request.path;
 }
