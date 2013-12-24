@@ -8,12 +8,28 @@ class Route {
   Set<String> _keys = new Set<String>();
   StreamController _controller = new StreamController();
 
-  static const String GET = 'GET',
-                      POST = 'POST',
-                      PUT = 'PUT',
+  static const String GET    = 'GET',
+                      POST   = 'POST',
+                      PUT    = 'PUT',
                       DELETE = 'DELETE',
-                      ANY = 'ANY',
-                      WS = 'WS';
+                      ANY    = 'ANY',
+                      WS     = 'WS';
+
+  factory Route.matchAllHttp() {
+    var config = r'^(.+)$',
+        method = Route.ANY,
+        route = new Route(config, method);
+
+    return route;
+  }
+
+  factory Route.MatchAllWS() {
+    var config = r'^(.+)$',
+        method = Route.WS,
+        route = new Route(config, method);
+
+    return route;
+  }
 
   Route(this.config, this.method) {
     regExp = _getRegExp(config);
@@ -25,10 +41,10 @@ class Route {
         inputMethod = transferables.method,
         isPathMatch = regExp.hasMatch(inputPath),
         isMethodMatch = method == Route.ANY
-                        ? (inputMethod == Route.GET ||
-                           inputMethod == Route.POST ||
-                           inputMethod == Route.PUT ||
-                           inputMethod == Route.DELETE)
+                        ? inputMethod == Route.GET  ||
+                          inputMethod == Route.POST ||
+                          inputMethod == Route.PUT  ||
+                          inputMethod == Route.DELETE
                         : inputMethod == method;
 
     return isPathMatch && isMethodMatch;
