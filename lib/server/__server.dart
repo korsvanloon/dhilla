@@ -1,20 +1,20 @@
 part of dhilla;
 
-typedef Middleware(request);
-
 class _Server extends Stream implements Server {
   final address;
   final int port, backlog;
   HttpServer _httpServer;
   StreamController _controller;
-  Set<Middleware> _middlewares = new Set<Middleware>();
+  Set<StreamTransformer> _middlewares = new Set<StreamTransformer>();
 
   _Server(this.address, this.port, this.backlog) {
     _controller = new StreamController(onListen: _onListen, onCancel: close);
   }
 
   void use(Middleware callback) {
-    _middlewares.add(callback);
+    var middleware = new _Middleware(callback);
+
+    _middlewares.add(middleware);
   }
 
   @override
@@ -22,18 +22,17 @@ class _Server extends Stream implements Server {
                             {Function onError,
                              void onDone(),
                              bool cancelOnError}) {
-    return _controller
-           .stream
-           .map((request) {
-             if (_middlewares.isNotEmpty)
-               _middlewares.forEach((middleware) =>
-                   request = middleware(request));
-             return request;
-           })
-           .listen(onData,
-                   onError: onError,
-                   onDone: onDone,
-                   cancelOnError: cancelOnError);
+    var stream = _controller.stream;
+
+    if (_middlewares.isNotEmpty)
+      _middlewares.forEach((middleware) {
+        stream = stream.transform(middleware);
+      });
+
+    return stream.listen(onData,
+                         onError: onError,
+                         onDone: onDone,
+                         cancelOnError: cancelOnError);
   }
 
   void _onListen() {
