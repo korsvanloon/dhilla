@@ -5,7 +5,7 @@ class Route {
                method;
   RegExp _parser = new RegExp(r'\(\?P<(\w+)>(.+?)\)'),
          regExp;
-  Set<String> _keys = new Set<String>();
+  Set<String> _keys;
   StreamController _controller = new StreamController();
 
   static const String GET    = 'GET',
