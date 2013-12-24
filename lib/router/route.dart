@@ -58,8 +58,11 @@ class Route {
   }
 
   Set<String> _getKeys(String input) {
-    var matches = _parser.allMatches(input),
-        newKeys = matches.map((match) => match[1]).toSet();
+    var matches = _parser.allMatches(input);
+
+    if (matches == null) return new Set();
+
+    var newKeys = matches.map((match) => match[1]).toSet();
 
     return newKeys;
   }
