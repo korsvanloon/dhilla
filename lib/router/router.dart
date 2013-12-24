@@ -4,7 +4,8 @@ class Router {
   Stream _source;
   StreamSubscription _subscription;
   Set<Route> _routes = new Set<Route>();
-  StreamController _controller = new StreamController();
+  Route _defaultHttpRoute = new Route.matchAllHttp(),
+        _defaultWSRoute = new Route.MatchAllWS();
 
   Router(this._source) {
     _subscription = _source.listen(_onData);
@@ -17,9 +18,14 @@ class Router {
   }
 
   StreamController _selectMatch(Transferables transferables) {
-    var firstMatch = _routes
+    var newRoute = transferables.method == Route.WS
+                   ? _defaultWSRoute
+                   : _defaultHttpRoute,
+        firstMatch = _routes
           .firstWhere((route) => route._checker(transferables), orElse: null),
-        controller = firstMatch == null ? _controller : firstMatch._controller;
+        controller = firstMatch == null
+                     ? newRoute._controller
+                     : firstMatch._controller;
 
     return controller;
   }
@@ -31,5 +37,7 @@ class Router {
     return route.stream;
   }
 
-  Stream get defaultHandler => _controller.stream;
+  Stream get defaultHttpHandler => _defaultHttpRoute.stream;
+
+  Stream get defaultWSHandler => _defaultWSRoute.stream;
 }
