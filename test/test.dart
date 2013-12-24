@@ -13,10 +13,12 @@ part 'response_test.dart';
 part 'ws_request_test.dart';
 part 'type_matcher.dart';
 part 'server_test.dart';
+part 'router_test.dart';
 
 void main() {
   requestTest();
   responseTest();
   wsRequestTest();
   serverTest();
+  routerTest();
 }
