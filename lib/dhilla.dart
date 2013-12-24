@@ -18,5 +18,3 @@ part 'server/__server.dart';
 part 'router/router.dart';
 part 'router/route.dart';
 part 'router/__params_filler.dart';
-
-
