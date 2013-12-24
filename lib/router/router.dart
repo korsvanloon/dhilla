@@ -21,8 +21,8 @@ class Router {
     var newRoute = transferables.method == Route.WS
                    ? _defaultWSRoute
                    : _defaultHttpRoute,
-        firstMatch = _routes
-          .firstWhere((route) => route._checker(transferables), orElse: null),
+        firstMatch = _routes.firstWhere((route) =>
+            route._checker(transferables), orElse: () => null),
         controller = firstMatch == null
                      ? newRoute._controller
                      : firstMatch._controller;
