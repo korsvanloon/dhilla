@@ -7,10 +7,15 @@ class _ParamsFiller extends Transformer {
 
   @override
   void handleData(Transferables transferables, EventSink sink) {
-    var values = _route._getValues(transferables.path),
-        params = new Map.fromIterables(_route._keys, values);
+    var keys = _route._keys;
 
-    transferables.params.addAll(params);
+    if (keys.isNotEmpty) {
+      var values = _route._getValues(transferables.path),
+          params = new Map.fromIterables(keys, values);
+
+      transferables.params.addAll(params);
+    }
+
     sink.add(transferables);
   }
 }
