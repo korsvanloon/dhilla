@@ -37,6 +37,18 @@ class Router {
     return route.stream;
   }
 
+  Stream get(String config) => handler(config, Route.GET);
+
+  Stream post(String config) => handler(config, Route.POST);
+
+  Stream put(String config) => handler(config, Route.PUT);
+
+  Stream delete(String config) => handler(config, Route.DELETE);
+
+  Stream any(String config) => handler(config, Route.ANY);
+
+  Stream ws(String config) => handler(config, Route.WS);
+
   Stream get defaultHttpHandler => _defaultHttpRoute.stream;
 
   Stream get defaultWSHandler => _defaultWSRoute.stream;
