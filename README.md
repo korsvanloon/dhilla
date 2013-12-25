@@ -70,12 +70,21 @@ bool get isDown;
 Route Transferables based on config and its method.
 
 Transferables has params, it's a map containing a kwargs based on config.
-For example: r'^/(?P<name>\w+)/(?P<age>\d+)/$'; if we have a request path like
+For example: 
+```dart
+r'^/(?P<name>\w+)/(?P<age>\d+)/$'
+```
+if we have a request path like
 this: /johndoe/9123/
 
-params will be = {'name' : johndoe, 'age': 9123}
-
-(?P<thisIsYourKey>thisIsYourRegex)
+params will be 
+```dart
+{'name' : johndoe, 'age': 9123}
+```
+To catch value, define your config with the following
+```dart
+(?P\<thisIsYourKey\>thisIsYourRegex)
+ ```
  
 ```dart
 get(String config); // handle GET request
