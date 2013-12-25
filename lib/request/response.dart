@@ -64,8 +64,55 @@ class Response extends HttpResponse {
     return _response.close();
   }
 
-  Future sendln([Object obj = ""]) {
+  Future sendln([Object obj = '']) {
     _response.writeln(obj);
     return _response.close();
   }
+
+  Future sendJSON(Object obj) {
+    var c = new Completer();
+
+    new Future(() => obj is Map || obj is List)
+      .then((result) => result ? result : throw '<$obj> is not a List or a Map')
+      .then((_) => JSON.encode(obj))
+      .then((json) {
+        _response.headers
+            ..set(HttpHeaders.CONTENT_TYPE, 'application/json')
+            ..set(HttpHeaders.CONTENT_LENGTH, json.length);
+        return json;
+      })
+      .then((json) => _response.write(json))
+      .then(c.complete)
+      .catchError((error, stackTrace) => c.completeError(error, stackTrace));
+
+    return c.future;
+  }
+
+  Future sendFile(String path, {override: true}) {
+    var c = new Completer(),
+        file = new File(path);
+
+    file
+      .exists()
+      .then((result) => result ? result : throw HttpStatus.NOT_FOUND)
+      .then((_) => file.length())
+      .then((length) =>
+          _response.headers.set(HttpHeaders.CONTENT_LENGTH, length))
+      .then((_) {
+        var ext = file.path.split('.').last;
+
+        if (override)
+          _response.headers.set(HttpHeaders.CONTENT_TYPE, MIME[ext]);
+        return ;
+      })
+      .then((_) => file.openRead().pipe(_response))
+      .then(c.complete)
+//      .catchError((error, stackTrace) {
+//
+//      }, test: (error) => error == 404)
+      .catchError((error, stackTrace) => c.completeError(error, stackTrace));
+
+    return c.future;
+  }
+
 }
