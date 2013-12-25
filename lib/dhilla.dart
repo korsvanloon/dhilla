@@ -2,7 +2,7 @@ library dhilla;
 
 import 'dart:io';
 import 'dart:async';
-import 'dart:convert' show Encoding;
+import 'dart:convert';
 
 import 'package:http_server/http_server.dart';
 import 'package:mongo_dart/mongo_dart.dart';
