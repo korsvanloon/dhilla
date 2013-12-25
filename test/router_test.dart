@@ -74,7 +74,7 @@ void routerTest() {
           expect(data, isTransferables);
           expect(data.params, isNot(isEmpty));
           expect(data.params['name'], equals('faris'));
-          expect(data.params['id'], equals('1'));
+          expect(data.params['id'], equals(1));
         }));
 
       controller.add(transferables);
