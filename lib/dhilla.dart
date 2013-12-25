@@ -5,7 +5,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http_server/http_server.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:transformer/transformer.dart';
 
 part 'request/request_transformer.dart';

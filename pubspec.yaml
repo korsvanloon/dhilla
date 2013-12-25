@@ -4,6 +4,5 @@ version: 0.0.1
 description: A simple web framework.
 dependencies:
   http_server: any
-  mongo_dart: any
   transformer: any
   unittest: any
