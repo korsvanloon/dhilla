@@ -38,12 +38,12 @@ class Response extends HttpResponse {
 
   void write(Object obj) => _response.write(obj);
 
-  void writeAll(Iterable objects, [String separator = ""])
+  void writeAll(Iterable objects, [String separator = ''])
       => _response.writeAll(objects, separator);
 
   void writeCharCode(int charCode) => _response.writeCharCode(charCode);
 
-  void writeln([Object obj = ""]) => _response.writeln(obj);
+  void writeln([Object obj = '']) => _response.writeln(obj);
 
   String get(String name) => _response.headers.value(name);
 
@@ -54,7 +54,7 @@ class Response extends HttpResponse {
     return _response.close();
   }
 
-  Future sendAll(Iterable objects, [String separator = ""]) {
+  Future sendAll(Iterable objects, [String separator = '']) {
     _response.writeAll(objects, separator);
     return _response.close();
   }
