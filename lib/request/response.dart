@@ -102,7 +102,7 @@ class Response extends HttpResponse {
     return c.future;
   }
 
-  Future sendFile(String path, {override: true}) {
+  Future sendFile(String path, {bool override: true}) {
     var c = new Completer(),
         file = new File(path);
 
@@ -121,9 +121,6 @@ class Response extends HttpResponse {
       })
       .then((_) => file.openRead().pipe(_response))
       .then(c.complete)
-//      .catchError((error, stackTrace) {
-//
-//      }, test: (error) => error == 404)
       .catchError((error, stackTrace) => c.completeError(error, stackTrace));
 
     return c.future;
