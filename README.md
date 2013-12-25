@@ -83,7 +83,7 @@ params will be
 ```
 To catch value, define your config with the following
 ```dart
-(?P\<thisIsYourKey\>thisIsYourRegex)
+(?P<thisIsYourKey>thisIsYourRegex)
  ```
  
 ```dart
