@@ -68,11 +68,24 @@ class Route {
   }
 
   Set<String> _getValues(String input) {
+
+    valueParser(value) {
+      try {
+        return int.parse(value);
+      } catch (error) {
+        try {
+          return double.parse(value);
+        } catch (e) {
+          return value;
+        }
+      }
+    }
+
     var match = regExp.firstMatch(input),
         index = new List.generate(match.groupCount,
                                   (i) => i + 1,
                                   growable: false),
-        values = match.groups(index).toSet();
+        values = match.groups(index).map(valueParser).toSet();
     return values;
   }
 
