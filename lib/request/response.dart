@@ -1,5 +1,19 @@
 part of dhilla;
 
+const MIME = const {
+  'txt': 'text/plain; charset=utf-8',
+  'json': 'application/json',
+  'mp4': 'video/mp4',
+  'css': 'text/css',
+  'html': 'text/html; charset=utf-8',
+  'png': 'image/png',
+  'jpg': 'image/jpeg',
+  'js': 'text/javascript',
+  'gif' : 'image/gif',
+  'webm': 'video/webm',
+  'mp3' : 'audio/mpeg'
+};
+
 class Response extends HttpResponse {
   HttpResponse _response;
 
