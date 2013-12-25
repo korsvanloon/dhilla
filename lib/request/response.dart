@@ -96,6 +96,7 @@ class Response extends HttpResponse {
         return json;
       })
       .then((json) => _response.write(json))
+      .then((_) => _response.close())
       .then(c.complete)
       .catchError((error, stackTrace) => c.completeError(error, stackTrace));
 
